@@ -1,9 +1,23 @@
 import cv2
 import mediapipe as mp
 import pyautogui
+import numpy as np
 
-# 1. Setup Camera and Screen
+# --- CONFIGURATION (Tweak these numbers!) ---
+smoothening = 7          # Higher = Smoother but slightly slower (Try 5 to 10)
+frame_reduction = 100    # Higher = You move your hand LESS to cover screen
+click_distance = 30      # Distance between fingers to trigger click
+
+# Variables for smoothing logic
+plocX, plocY = 0, 0      # Previous Location
+clocX, clocY = 0, 0      # Current Location
+
+# 1. Setup Camera
 cap = cv2.VideoCapture(0)
+# Set camera resolution explicitly for better performance
+cap.set(3, 640) 
+cap.set(4, 480)
+
 screen_width, screen_height = pyautogui.size()
 
 # 2. Setup Hand Detector
@@ -11,18 +25,23 @@ mp_hands = mp.solutions.hands
 hands = mp_hands.Hands(
     static_image_mode=False,
     max_num_hands=1,
-    min_detection_confidence=0.7
+    min_detection_confidence=0.7,
+    min_tracking_confidence=0.7 
 )
 mp_draw = mp.solutions.drawing_utils
 
 while True:
-    # 3. Read the Frame
     success, frame = cap.read()
-    if not success:
-        break
+    if not success: break
     
+    # Flip frame for mirror effect
     frame = cv2.flip(frame, 1)
-    frame_height, frame_width, _ = frame.shape
+    h, w, _ = frame.shape
+    
+    # Draw the "Active Area" Box (Visual Guide)
+    cv2.rectangle(frame, (frame_reduction, frame_reduction), 
+                  (w - frame_reduction, h - frame_reduction), (255, 0, 255), 2)
+    
     rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     output = hands.process(rgb_frame)
     
@@ -32,35 +51,42 @@ while True:
             
             landmarks = hand_landmarks.landmark
             
-            # --- FIXED SECTION START ---
+            # --- 1. Get Coordinates ---
+            # Index Finger Tip (ID 8)
+            index_x = landmarks[8].x * w
+            index_y = landmarks[8].y * h
             
-            # Get Index Finger Tip (ID 8) DIRECTLY
-            index_tip = landmarks[8]
-            index_x = int(index_tip.x * frame_width)
-            index_y = int(index_tip.y * frame_height)
+            # --- 2. Convert Coordinates (Mapping) ---
+            # Map the coordinates from the small box to the full screen
+            # np.interp(variable, [min_input, max_input], [min_output, max_output])
+            x3 = np.interp(index_x, (frame_reduction, w - frame_reduction), (0, screen_width))
+            y3 = np.interp(index_y, (frame_reduction, h - frame_reduction), (0, screen_height))
             
-            # Get Thumb Tip (ID 4) DIRECTLY
-            thumb_tip = landmarks[4]
-            thumb_x = int(thumb_tip.x * frame_width)
-            thumb_y = int(thumb_tip.y * frame_height)
+            # --- 3. Apply Smoothing ---
+            # Current = Previous + (Target - Previous) / Smoothing Amount
+            clocX = plocX + (x3 - plocX) / smoothening
+            clocY = plocY + (y3 - plocY) / smoothening
+            
+            # --- 4. Move Mouse ---
+            pyautogui.moveTo(clocX, clocY)
+            
+            # Update Previous Location for next loop
+            plocX, plocY = clocX, clocY
 
-            # Draw circles
-            cv2.circle(frame, (index_x, index_y), 10, (0, 255, 255), cv2.FILLED)
-            cv2.circle(frame, (thumb_x, thumb_y), 10, (0, 255, 255), cv2.FILLED)
+            # --- 5. Clicking Logic ---
+            thumb_x = landmarks[4].x * w
+            thumb_y = landmarks[4].y * h
             
-            # Move Mouse
-            mouse_x = screen_width / frame_width * index_x
-            mouse_y = screen_height / frame_height * index_y
-            pyautogui.moveTo(mouse_x, mouse_y)
+            # Calculate distance between Index and Thumb
+            distance = ((index_x - thumb_x)**2 + (index_y - thumb_y)**2) ** 0.5
             
-            # Check for Click
-            if abs(index_y - thumb_y) < 20: 
+            if distance < click_distance:
+                # Visual feedback for click (Green Circle)
+                cv2.circle(frame, (int(index_x), int(index_y)), 15, (0, 255, 0), cv2.FILLED)
                 pyautogui.click()
-                pyautogui.sleep(1) 
+                pyautogui.sleep(0.2) # Avoid double clicks
 
-            # --- FIXED SECTION END ---
-
-    cv2.imshow('AI Virtual Mouse', frame)
+    cv2.imshow('AI Smooth Mouse', frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
