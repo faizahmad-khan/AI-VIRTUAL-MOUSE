@@ -134,3 +134,20 @@ If this project helped you, consider supporting the development:
 **Drag & Drop**: Enhance the click logic to detect a "held pinch." If the distance remains small for more than 1 second while moving, the system would execute pyautogui.mouseDown() to drag files and pyautogui.mouseUp() to release them.
 
 **AI Virtual Keyboard**: Integrate a virtual on-screen keyboard that allows users to type by hovering over keys, making the tool a complete hardware replacement for users with physical disabilities.
+
+## 📁 Project Structure
+The project is organized as follows:
+```
+AI VIRTUAL MOUSE/
+├── src/                   # Source code files
+│   ├── ai_mouse.py        # Main application logic
+│   ├── right_click_feature.py    # Right-click functionality
+│   ├── scroll_feature.py         # Scroll functionality
+│   └── drag_drop_feature.py      # Drag and drop functionality
+├── docs/                  # Documentation files
+├── tests/                 # Test files (future addition)
+├── README.md              # Main project documentation
+├── requirements.txt       # Python dependencies
+├── setup.py               # Package setup configuration
+└── LICENSE              # License information
+```
