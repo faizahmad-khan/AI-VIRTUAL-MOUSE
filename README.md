@@ -57,6 +57,7 @@ The AI Virtual Mouse tracks your index finger tip to move the cursor and recogni
 
 - **Cursor Movement**: Move your index finger (landmark ID 8) within the purple tracking area to move the mouse cursor
 - **Left Click**: Touch your thumb (landmark ID 4) to your index finger tip - a green circle will appear as visual feedback
+- **Double Click**: Touch your thumb to your index finger tip twice in quick succession (within 0.3 seconds) - a blue circle will appear as visual feedback
 - **Active Area**: Keep your hand within the purple rectangle for optimal tracking
 
 ## ⚙️ Configuration
@@ -66,13 +67,15 @@ The script includes configurable parameters at the top of `ai_mouse.py`:
 - `smoothening`: Controls cursor smoothness (higher = smoother but slower response)
 - `frame_reduction`: Defines the border area around the screen (higher = less hand movement needed)
 - `click_distance`: Distance threshold for detecting clicks (in pixels)
+- `double_click_time`: Time threshold for double-click detection (in seconds)
 
 Adjust these values based on your preference and camera setup.
 
 ## 📷 Visual Feedback
 
 - **Purple Rectangle**: Active tracking area
-- **Green Circle**: Visual feedback when a click is detected
+- **Green Circle**: Visual feedback when a single click is detected
+- **Blue Circle**: Visual feedback when a double-click is detected
 - **Hand Landmarks**: Shows tracked hand points in real-time
 
 ## ⚠️ Notes
