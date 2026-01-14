@@ -28,6 +28,8 @@ The AI Virtual Mouse tracks your index finger tip to move the cursor and recogni
 - PyAutoGUI
 - NumPy
 
+All required packages are listed in [requirements.txt](requirements.txt).
+
 ## 🔧 Installation
 
 1. Clone or download this repository:
@@ -38,7 +40,7 @@ The AI Virtual Mouse tracks your index finger tip to move the cursor and recogni
 
 2. Install required packages:
    ```bash
-   pip install opencv-python mediapipe pyautogui numpy
+   pip install -r requirements.txt
    ```
 
 ## 🎮 Usage
@@ -87,8 +89,36 @@ Adjust these values based on your preference and camera setup.
 
 ## 🤝 Contributing
 
-Contributions are welcome! Feel free to submit issues or pull requests for improvements.
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+Please make sure to update tests as appropriate and adhere to the code style guidelines.
+
+## 🐛 Issues
+
+If you encounter any bugs or have feature requests, please [open an issue](https://github.com/yourusername/ai-virtual-mouse/issues) with a clear description and reproduction steps.
 
 ## 📄 License
 
-This project is open-source and available under the MIT License.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- MediaPipe for the hand tracking capabilities
+- OpenCV for computer vision processing
+- PyAutoGUI for mouse control automation
+- NumPy for mathematical computations
+
+## 📞 Contact
+
+If you have any questions, feel free to reach out or open an issue in the repository.
+
+## 💰 Support
+
+If this project helped you, consider supporting the development:
+
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/)
+[![PayPal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/)
