@@ -40,7 +40,7 @@ setup(
     install_requires=requirements,
     entry_points={
         "console_scripts": [
-            "ai-mouse=ai_mouse:main",  # Requires main function in ai_mouse.py
+            "ai-mouse=src.ai_mouse:main",
         ],
     },
 )
