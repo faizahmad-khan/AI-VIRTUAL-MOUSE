@@ -122,3 +122,15 @@ If this project helped you, consider supporting the development:
 
 [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/)
 [![PayPal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/)
+
+## 🚀 Future Scope
+
+### Future Enhancements & Scalability
+
+**Right-Click Functionality**: Implement a gesture using the Middle Finger (ID 12) and Thumb (ID 4). A "pinch" between these two would trigger a context menu, separating it from the left-click (Index + Thumb).
+
+**Scroll Mode**: Introduce a "Two-Finger Up" state (Index and Middle fingers extended). Mapping the vertical movement of the hand in this state to pyautogui.scroll() would allow for natural webpage navigation.
+
+**Drag & Drop**: Enhance the click logic to detect a "held pinch." If the distance remains small for more than 1 second while moving, the system would execute pyautogui.mouseDown() to drag files and pyautogui.mouseUp() to release them.
+
+**AI Virtual Keyboard**: Integrate a virtual on-screen keyboard that allows users to type by hovering over keys, making the tool a complete hardware replacement for users with physical disabilities.
