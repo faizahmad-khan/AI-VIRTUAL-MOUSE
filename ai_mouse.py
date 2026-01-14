@@ -4,13 +4,18 @@ import pyautogui
 import numpy as np
 
 # --- CONFIGURATION (Tweak these numbers!) ---
-smoothening = 7          # Higher = Smoother but slightly slower (Try 5 to 10)
+smoothening = 8          # Higher = Smoother but slightly slower (Try 5 to 10)
 frame_reduction = 100    # Higher = You move your hand LESS to cover screen
 click_distance = 30      # Distance between fingers to trigger click
+double_click_distance = 40  # Distance between fingers to trigger double click
+double_click_time = 0.3     # Time in seconds between clicks for double click
 
 # Variables for smoothing logic
 plocX, plocY = 0, 0      # Previous Location
 clocX, clocY = 0, 0      # Current Location
+
+# Variables for double click logic
+last_click_time = 0      # Time of last click
 
 # 1. Setup Camera
 cap = cv2.VideoCapture(0)
@@ -81,10 +86,19 @@ while True:
             distance = ((index_x - thumb_x)**2 + (index_y - thumb_y)**2) ** 0.5
             
             if distance < click_distance:
-                # Visual feedback for click (Green Circle)
-                cv2.circle(frame, (int(index_x), int(index_y)), 15, (0, 255, 0), cv2.FILLED)
-                pyautogui.click()
-                pyautogui.sleep(0.2) # Avoid double clicks
+                # Check for double click
+                current_time = pyautogui.time.time()
+                if current_time - last_click_time < double_click_time:
+                    # Visual feedback for double click (Blue Circle)
+                    cv2.circle(frame, (int(index_x), int(index_y)), 15, (255, 0, 0), cv2.FILLED)
+                    pyautogui.doubleClick()
+                    last_click_time = 0  # Reset to prevent triple-click
+                else:
+                    # Visual feedback for single click (Green Circle)
+                    cv2.circle(frame, (int(index_x), int(index_y)), 15, (0, 255, 0), cv2.FILLED)
+                    pyautogui.click()
+                    last_click_time = current_time
+                pyautogui.sleep(0.2) # Avoid unintended rapid clicks
 
     cv2.imshow('AI Smooth Mouse', frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
