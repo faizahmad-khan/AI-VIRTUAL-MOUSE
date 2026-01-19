@@ -116,10 +116,10 @@ def main():
                     if current_time - last_click_time < double_click_time:
                         # Visual feedback for double click (Blue Circle)
                         cv2.circle(
-                            frame, 
-                            (int(index_x), int(index_y)), 
-                            15, 
-                            (255, 0, 0), 
+                            frame,
+                            (int(index_x), int(index_y)),
+                            15,
+                            (255, 0, 0),
                             cv2.FILLED
                         )
                         pyautogui.doubleClick()
@@ -127,15 +127,15 @@ def main():
                     else:
                         # Visual feedback for single click (Green Circle)
                         cv2.circle(
-                            frame, 
-                            (int(index_x), int(index_y)), 
-                            15, 
-                            (0, 255, 0), 
+                            frame,
+                            (int(index_x), int(index_y)),
+                            15,
+                            (0, 255, 0),
                             cv2.FILLED
                         )
                         pyautogui.click()
                         last_click_time = current_time
-                    pyautogui.sleep(0.2)  # Avoid unintended rapid clicks
+                    pyautogui.sleep(0.15)  # Prevent multiple detections
 
         cv2.imshow('AI Smooth Mouse', frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
