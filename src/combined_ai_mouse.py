@@ -18,7 +18,7 @@ def main():
     """Main function to run the combined AI Virtual Mouse application with all features."""
     
     # --- CONFIGURATION (Tweak these numbers!) ---
-    smoothening = 8              # Higher = Smoother but slightly slower (Try 5 to 10)
+    smoothening = 5             # Higher = Smoother but slightly slower (Try 5 to 10)
     frame_reduction = 100        # Higher = You move your hand LESS to cover screen
     click_distance = 30          # Distance between fingers to trigger click
     right_click_distance = 40    # Distance for right-click
