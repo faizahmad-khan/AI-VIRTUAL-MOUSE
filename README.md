@@ -2,7 +2,6 @@
 
 A computer vision-based virtual mouse application that allows you to control your computer cursor using hand gestures captured through your webcam. This project uses MediaPipe for hand tracking and PyAutoGUI for mouse control.
 
-![AI Virtual Mouse Screenshot](images/Screenshot 2026-01-20 at 3.15.22 PM.png)
 
 ## 🚀 Features
 
@@ -81,6 +80,11 @@ Adjust these values based on your preference and camera setup.
 - **Green Circle**: Visual feedback when a single click is detected
 - **Blue Circle**: Visual feedback when a double-click is detected
 - **Hand Landmarks**: Shows tracked hand points in real-time
+
+## 📹 Demo
+Here's a demonstration of the AI Virtual Mouse in action:
+
+![Demo of AI Virtual Mouse](images/demo.png)
 
 ## ⚠️ Notes
 
