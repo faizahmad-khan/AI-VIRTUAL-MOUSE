@@ -145,15 +145,24 @@ If this project helped you, consider supporting the development:
 The project is organized as follows:
 ```
 AI VIRTUAL MOUSE/
-├── src/                   # Source code files
-│   ├── ai_mouse.py        # Main application logic
-│   ├── right_click_feature.py    # Right-click functionality
-│   ├── scroll_feature.py         # Scroll functionality
-│   └── drag_drop_feature.py      # Drag and drop functionality
-├── docs/                  # Documentation files
-├── tests/                 # Test files (future addition)
-├── README.md              # Main project documentation
-├── requirements.txt       # Python dependencies
-├── setup.py               # Package setup configuration
-└── LICENSE              # License information
+├── src/                          # Source code files
+│   ├── ai_mouse.py               # Basic mouse control with cursor movement and left click
+│   ├── right_click_feature.py    # Right-click functionality implementation
+│   ├── scroll_feature.py         # Scroll functionality implementation
+│   ├── drag_drop_feature.py      # Drag and drop functionality implementation
+│   ├── combined_ai_mouse.py      # Complete application with all features integrated
+│   └── __init__.py               # Package initialization
+├── docs/                         # Documentation files
+│   ├── README.md                 # Documentation overview
+│   ├── contributing.md           # Contribution guidelines
+│   ├── license-details.md        # Detailed license information
+│   └── project_structure.md      # Detailed project architecture
+├── images/                       # Project images and demos
+│   └── demo.png                  # Demo screenshot
+├── tests/                        # Test files (future addition)
+├── README.md                     # Main project documentation
+├── requirements.txt              # Python dependencies
+├── setup.py                      # Package setup configuration
+├── LICENSE                       # License information
+└── .gitignore                    # Git ignore rules
 ```
