@@ -198,18 +198,24 @@ def main():
                             is_dragging = False
                         pinch_start_time = None
 
+                    # Track right-click state to avoid repeated triggering
+                    if 'right_click_prev' not in locals():
+                        right_click_prev = False
+                    
                     # Handle right click (only when not dragging)
-                    if middle_thumb_distance < right_click_distance and not is_dragging:
+                    if middle_thumb_distance < right_click_distance and not is_dragging and not right_click_prev:
                         # Visual feedback for right click (Red Circle)
                         cv2.circle(
-                            frame, 
-                            (int(middle_x), int(middle_y)), 
-                            15, 
+                            frame,
+                            (int(middle_x), int(middle_y)),
+                            15,
                             (0, 0, 255),  # Red color
                             cv2.FILLED
                         )
                         pyautogui.rightClick()
-                        pyautogui.sleep(0.3)  # Avoid unintended rapid right clicks
+                        right_click_prev = True  # Mark as triggered to prevent repeated triggering
+                    elif middle_thumb_distance >= right_click_distance:
+                        right_click_prev = False  # Reset when fingers are apart
 
                     # Handle left click (only when not dragging and not right clicking)
                     if index_thumb_distance < click_distance and not is_dragging and middle_thumb_distance >= right_click_distance:
@@ -218,10 +224,10 @@ def main():
                         if current_time - last_click_time < double_click_time:
                             # Visual feedback for double click (Blue Circle)
                             cv2.circle(
-                                frame, 
-                                (int(index_x), int(index_y)), 
-                                15, 
-                                (255, 0, 0), 
+                                frame,
+                                (int(index_x), int(index_y)),
+                                15,
+                                (255, 0, 0),
                                 cv2.FILLED
                             )
                             pyautogui.doubleClick()
@@ -229,15 +235,15 @@ def main():
                         else:
                             # Visual feedback for single click (Green Circle)
                             cv2.circle(
-                                frame, 
-                                (int(index_x), int(index_y)), 
-                                15, 
-                                (0, 255, 0), 
+                                frame,
+                                (int(index_x), int(index_y)),
+                                15,
+                                (0, 255, 0),
                                 cv2.FILLED
                             )
                             pyautogui.click()
                             last_click_time = current_time
-                        pyautogui.sleep(0.1)  # Reduced sleep to improve responsiveness
+                        # Removed sleep to maintain cursor responsiveness
 
         # Draw instructions on frame
         cv2.putText(frame, "Pinch and hold for 1 sec to drag", (10, h-60), 
