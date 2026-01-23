@@ -79,6 +79,9 @@ For specific functionality, you can run individual modules:
 - **Cursor Movement**: Move your index finger (landmark ID 8) within the purple tracking area to move the mouse cursor
 - **Left Click**: Touch your thumb (landmark ID 4) to your index finger tip - a green circle will appear as visual feedback
 - **Double Click**: Touch your thumb to your index finger tip twice in quick succession (within 0.3 seconds) - a blue circle will appear as visual feedback
+- **Right Click**: Touch your thumb (landmark ID 4) to your middle finger tip (landmark ID 12) - a red circle will appear as visual feedback
+- **Scroll Mode**: Touch your middle finger (landmark ID 12) to your ring finger (landmark ID 16) to activate scroll mode - a yellow circle will appear as visual feedback
+- **Drag & Drop**: Pinch your index finger and thumb and hold for 1 second to initiate drag - a larger blue circle will appear as visual feedback
 - **Active Area**: Keep your hand within the purple rectangle for optimal tracking
 
 ## ⚙️ Configuration
