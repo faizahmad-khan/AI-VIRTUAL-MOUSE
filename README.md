@@ -100,6 +100,9 @@ Adjust these values based on your preference and camera setup.
 - **Purple Rectangle**: Active tracking area
 - **Green Circle**: Visual feedback when a single click is detected
 - **Blue Circle**: Visual feedback when a double-click is detected
+- **Red Circle**: Visual feedback when a right-click is detected
+- **Yellow Circle**: Visual feedback when scroll mode is activated
+- **Large Blue Circle**: Visual feedback when drag mode is initiated
 - **Hand Landmarks**: Shows tracked hand points in real-time
 
 ## 📹 Demo
