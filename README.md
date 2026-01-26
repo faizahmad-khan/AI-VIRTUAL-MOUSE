@@ -86,12 +86,17 @@ For specific functionality, you can run individual modules:
 
 ## ⚙️ Configuration
 
-The script includes configurable parameters at the top of `ai_mouse.py`:
+The script includes configurable parameters at the top of the `.py` files:
 
+**In `ai_mouse.py`, `combined_ai_mouse.py`, and feature files:**
 - `smoothening`: Controls cursor smoothness (higher = smoother but slower response)
 - `frame_reduction`: Defines the border area around the screen (higher = less hand movement needed)
 - `click_distance`: Distance threshold for detecting clicks (in pixels)
 - `double_click_time`: Time threshold for double-click detection (in seconds)
+- `right_click_distance`: Distance threshold for right-click detection
+- `scroll_threshold`: Minimum movement to trigger scroll
+- `scroll_sensitivity`: Sensitivity of scrolling
+- `drag_hold_duration`: Duration to hold pinch to initiate drag (in seconds)
 
 Adjust these values based on your preference and camera setup.
 
@@ -116,6 +121,24 @@ Here's a demonstration of the AI Virtual Mouse in action:
 - The camera should have a clear view of your hand
 - Initial calibration might be needed for optimal performance
 - The application requires constant camera access
+
+## 🔧 Troubleshooting
+
+### Common Issues:
+
+**Camera not detected**: Make sure your camera is properly connected and not being used by another application.
+
+**Poor tracking performance**: Ensure adequate lighting and adjust the `smoothening` and `frame_reduction` parameters in the configuration.
+
+**Gestures not responding**: Check that your hand is positioned within the purple tracking rectangle and that your fingers are clearly visible to the camera.
+
+**Incorrect cursor positioning**: Verify that the camera resolution settings match your actual camera capabilities.
+
+**Multiple gesture triggers**: Adjust the distance thresholds (`click_distance`, `right_click_distance`) if gestures are being triggered too easily.
+
+**Scroll not working**: Ensure you're keeping middle and ring fingers together while moving vertically to activate scroll mode.
+
+**Drag & drop not working**: Hold the pinch gesture for at least 1 second before moving to initiate drag mode.
 
 ## 🤝 Contributing
 
@@ -157,13 +180,15 @@ If this project helped you, consider supporting the development:
 
 ### Future Enhancements & Scalability
 
-**Right-Click Functionality**: Implement a gesture using the Middle Finger (ID 12) and Thumb (ID 4). A "pinch" between these two would trigger a context menu, separating it from the left-click (Index + Thumb).
-
-**Scroll Mode**: Introduce a "Two-Finger Up" state (Index and Middle fingers extended). Mapping the vertical movement of the hand in this state to pyautogui.scroll() would allow for natural webpage navigation.
-
-**Drag & Drop**: Enhance the click logic to detect a "held pinch." If the distance remains small for more than 1 second while moving, the system would execute pyautogui.mouseDown() to drag files and pyautogui.mouseUp() to release them.
-
 **AI Virtual Keyboard**: Integrate a virtual on-screen keyboard that allows users to type by hovering over keys, making the tool a complete hardware replacement for users with physical disabilities.
+
+**Voice Commands Integration**: Add voice control capabilities to complement hand gestures for enhanced accessibility.
+
+**Gesture Customization**: Allow users to define custom gestures for specific actions through a configuration interface.
+
+**Advanced Scrolling**: Implement horizontal scrolling and zoom gestures using multiple finger combinations.
+
+**Machine Learning Enhancement**: Train custom models to recognize user-specific gestures for improved accuracy and personalization.
 
 ## 📁 Project Structure
 The project is organized as follows:
