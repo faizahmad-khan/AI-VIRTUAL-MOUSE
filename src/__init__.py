@@ -7,7 +7,7 @@ PyAutoGUI for mouse control.
 """
 
 __version__ = "1.0.0"
-__author__ = "Faiza Ahmad Khan"
+__author__ = "Faiz Ahmad Khan"
 __email__ = "your-email@example.com"
 __license__ = "MIT"
 
