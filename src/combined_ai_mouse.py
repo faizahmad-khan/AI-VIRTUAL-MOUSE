@@ -41,6 +41,10 @@ def main():
     # Variables for drag and drop logic
     pinch_start_time = None
     is_dragging = False
+    
+    # Variables for click state tracking
+    left_click_prev = False  # Track if left click was triggered in previous frame
+    right_click_prev = False  # Track if right click was triggered in previous frame
 
     # 1. Setup Camera
     cap = cv2.VideoCapture(0)
@@ -199,9 +203,6 @@ def main():
                         pinch_start_time = None
 
                     # Track right-click state to avoid repeated triggering
-                    if 'right_click_prev' not in locals():
-                        right_click_prev = False
-                    
                     # Handle right click (only when not dragging)
                     if middle_thumb_distance < right_click_distance and not is_dragging and not right_click_prev:
                         # Visual feedback for right click (Red Circle)
@@ -218,7 +219,7 @@ def main():
                         right_click_prev = False  # Reset when fingers are apart
 
                     # Handle left click (only when not dragging and not right clicking)
-                    if index_thumb_distance < click_distance and not is_dragging and middle_thumb_distance >= right_click_distance:
+                    if index_thumb_distance < click_distance and not is_dragging and middle_thumb_distance >= right_click_distance and not left_click_prev:
                         # Check for double click
                         current_time = pyautogui.time.time()
                         if current_time - last_click_time < double_click_time:
@@ -243,7 +244,9 @@ def main():
                             )
                             pyautogui.click()
                             last_click_time = current_time
-                        # Removed sleep to maintain cursor responsiveness
+                        left_click_prev = True  # Mark as triggered
+                    elif index_thumb_distance >= click_distance:
+                        left_click_prev = False  # Reset when fingers are apart
 
         # Draw instructions on frame
         cv2.putText(frame, "Pinch and hold for 1 sec to drag", (10, h-60), 
