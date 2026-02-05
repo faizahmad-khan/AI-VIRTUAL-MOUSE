@@ -1,0 +1,71 @@
+# AI Virtual Mouse Configuration File
+# Adjust these settings to customize the behavior of the virtual mouse
+
+# === CURSOR CONTROL SETTINGS ===
+cursor:
+  smoothening: 5              # Higher = smoother but slightly slower (Range: 1-15)
+  frame_reduction: 100        # Border size for tracking area (Range: 50-200)
+
+# === CLICK SETTINGS ===
+clicks:
+  left_click_distance: 30     # Distance threshold for left click (Range: 20-50)
+  right_click_distance: 40    # Distance threshold for right click (Range: 30-60)
+  double_click_time: 0.3      # Max time between clicks for double-click (Range: 0.1-0.5)
+
+# === SCROLL SETTINGS ===
+scroll:
+  threshold: 20               # Minimum movement to trigger scroll (Range: 10-40)
+  sensitivity: 10             # How much to scroll per movement (Range: 5-20)
+  activation_distance: 30     # Distance between middle+ring fingers to activate (Range: 20-50)
+
+# === DRAG AND DROP SETTINGS ===
+drag:
+  hold_duration: 1.0          # Duration to hold pinch to initiate drag (Range: 0.5-2.0)
+
+# === CAMERA SETTINGS ===
+camera:
+  device_id: 0                # Camera device ID (0 for default camera)
+  width: 640                  # Camera resolution width
+  height: 480                 # Camera resolution height
+  fps: 30                     # Target FPS (if supported by camera)
+
+# === HAND DETECTION SETTINGS ===
+hand_detection:
+  max_num_hands: 1            # Maximum number of hands to detect (1 or 2)
+  min_detection_confidence: 0.7   # Confidence threshold for detection (Range: 0.5-0.95)
+  min_tracking_confidence: 0.7    # Confidence threshold for tracking (Range: 0.5-0.95)
+
+# === VISUAL FEEDBACK SETTINGS ===
+visual:
+  show_landmarks: true        # Show hand skeleton overlay
+  show_active_area: true      # Show purple tracking rectangle
+  show_instructions: true     # Show on-screen instructions
+  feedback_circle_size: 15    # Size of gesture feedback circles
+  
+  # Color settings (BGR format)
+  colors:
+    left_click: [0, 255, 0]        # Green
+    right_click: [0, 0, 255]       # Red
+    double_click: [255, 0, 0]      # Blue
+    scroll_mode: [0, 255, 255]     # Yellow
+    drag_mode: [255, 0, 0]         # Blue
+    active_area: [255, 0, 255]     # Magenta/Purple
+
+# === PERFORMANCE SETTINGS ===
+performance:
+  enable_fps_counter: true    # Show FPS counter on screen
+  log_performance: false      # Log performance metrics to file
+
+# === ACCESSIBILITY SETTINGS ===
+accessibility:
+  enable_sound_feedback: false    # Play sounds for gestures
+  enable_pause_gesture: true      # Enable pause/resume with fist gesture
+  pause_detection_time: 2.0       # Time to hold fist to toggle pause (Range: 1.0-3.0)
+
+# === LOGGING SETTINGS ===
+logging:
+  level: INFO                 # Logging level: DEBUG, INFO, WARNING, ERROR
+  file: logs/ai_mouse.log     # Log file path
+  console: true               # Also print logs to console
+  max_file_size: 10485760     # Max log file size in bytes (10MB)
+  backup_count: 3             # Number of backup log files to keep
