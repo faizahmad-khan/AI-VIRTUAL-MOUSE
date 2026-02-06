@@ -42,12 +42,20 @@ Thumbs.db
 
 # Logs
 *.log
+logs/
 
 # Environment variables
 .env
 .env.local
 
-# User data
+# Test coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# User data and config backups
+*.bak
+config.yaml.bak
 *.csv
 *.json
 *.xml
