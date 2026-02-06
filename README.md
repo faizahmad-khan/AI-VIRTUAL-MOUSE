@@ -5,14 +5,24 @@ A computer vision-based virtual mouse application that allows you to control you
 
 ## 🚀 Features
 
+### Core Features
 - **Hand Tracking**: Uses MediaPipe's hand detection model to track finger movements
 - **Smooth Cursor Control**: Implements smoothing algorithm for fluid cursor movement
 - **Gesture-Based Clicking**: Automatically detects finger pinch gestures for clicking
-- **Configurable Settings**: Adjustable parameters for sensitivity and responsiveness
 - **Right-Click Support**: Perform right-clicks using middle finger and thumb pinch gesture
 - **Scroll Functionality**: Scroll vertically by bringing middle and ring fingers together and moving up/down
 - **Drag & Drop**: Hold pinch gesture for 1 second to initiate drag operations
 - **Multi-Gesture Recognition**: Advanced gesture recognition supporting multiple simultaneous operations
+
+### New Advanced Features ✨
+- **Configuration Management**: YAML-based configuration system for easy customization
+- **Configuration GUI**: User-friendly interface to adjust all settings in real-time
+- **Gesture Calibration**: Automatic calibration tool to optimize detection for your hand size
+- **Pause/Resume**: Make a fist for 2 seconds to pause/resume mouse control
+- **Comprehensive Logging**: Detailed logging system for debugging and performance monitoring
+- **Error Handling**: Robust error handling with graceful recovery
+- **FPS Counter**: Real-time performance monitoring displayed on screen
+- **Unit Tests**: Comprehensive test suite for code quality assurance
 
 ## 🛠️ How It Works
 
@@ -51,10 +61,29 @@ All required packages are listed in [requirements.txt](requirements.txt).
 ## 🎮 Usage
 
 ### Quick Start
-Run the basic version with all features enabled:
+See [QUICKSTART.md](QUICKSTART.md) for a comprehensive getting started guide.
+
+### First Time Setup
+
+**1. Calibrate Gestures (Recommended)**
+```bash
+python src/gesture_calibrator.py
+```
+Follow on-screen instructions to calibrate gesture detection for your hand size.
+
+**2. Configure Settings (Optional)**
+```bash
+python src/config_gui.py
+```
+Launch the GUI to adjust sensitivity, thresholds, and visual feedback.
+
+### Running the Application
+
+**Run with all features:**
 ```bash
 python src/combined_ai_mouse.py
-```
+```Make a **fist for 2 seconds** to pause/resume the application
+8. Press **'q'**
 
 ### Individual Feature Scripts
 For specific functionality, you can run individual modules:
@@ -85,32 +114,91 @@ For specific functionality, you can run individual modules:
 - **Active Area**: Keep your hand within the purple rectangle for optimal tracking
 
 ## ⚙️ Configuration
+application uses a YAML configuration file (`config.yaml`) for all settings.
 
-The script includes configurable parameters at the top of the `.py` files:
+### Using the Configuration GUI
 
-**In `ai_mouse.py`, `combined_ai_mouse.py`, and feature files:**
-- `smoothening`: Controls cursor smoothness (higher = smoother but slower response)
-- `frame_reduction`: Defines the border area around the screen (higher = less hand movement needed)
-- `click_distance`: Distance threshold for detecting clicks (in pixels)
-- `double_click_time`: Time threshold for double-click detection (in seconds)
-- `right_click_distance`: Distance threshold for right-click detection
-- `scroll_threshold`: Minimum movement to trigger scroll
-- `scroll_sensitivity`: Sensitivity of scrolling
-- `drag_hold_duration`: Duration to hold pinch to initiate drag (in seconds)
+Launch the graphical configuration tool:
+```bash
+python src/config_gui.py
+```
 
-Adjust these values based on your preference and camera setup.
+Features:
+- Real-time parameter adjustment
+- Organized tabs for different settings
+- Save/load configurations
+- Reset to defaults
 
-## 📷 Visual Feedback
+### Manual Configuration
 
-- **Purple Rectangle**: Active tracking area
-- **Green Circle**: Visual feedback when a single click is detected
-- **Blue Circle**: Visual feedback when a double-click is detected
-- **Red Circle**: Visual feedback when a right-click is detected
-- **Yellow Circle**: Visual feedback when scroll mode is activated
-- **Large Blue Circle**: Visual feedback when drag mode is initiated
-- **Hand Landmarks**: Shows tracked hand points in real-time
+Edit `config.yaml` directly to customize:
 
-## 📹 Demo
+**Cursor Settings:**
+- `smoothening`: Controls cursor smoothness (1-15, default: 5)
+- `frame_reduction`: Border area size (50-200, default: 100)
+
+**Click Settings:**
+- `left_click_distance`: Pinch threshold for left click (20-50, default: 30)
+- `right_click_distance`: Pinch threshold for right click (30-60, default: 40)
+- `double_click_time`: Max time between clicks (0.1-0.5s, default: 0.3)
+
+**Scroll Settings:**
+- `threshold`: Minimum movement to trigger scroll (10-40, default: 20)
+- `sensitivity`: Scroll amount per movement (5-20, default: 10)
+- `activation_distance`: Finger distance to activate (20-50, default: 30)
+
+**Other Settings:**
+- Camera resolution and device
+- Visual feedback options
+- Performance monitoring
+- Accessibility features
+
+See `config.yaml` for all available options and detailed comments
+Adjust these values based
+- Make sure your camera is properly connected and not being used by another application
+- Try changing the `camera.device_id` in config.yaml (usually 0 or 1)
+- Check camera permissions on your system
+
+**Poor tracking performance**: 
+- Ensure adequate lighting
+- Run the calibration tool: `python src/gesture_calibrator.py`
+- Adjust `smoothening` and `frame_reduction` in config.yaml
+- Check logs in `logs/ai_mouse.log` for errors
+
+**Gestures not responding**: 
+- Run calibration to optimize for your hand size
+- Check that your hand is positioned within the purple tracking rectangle
+- Ensure fingers are clearly visible to the camera
+- Adjust distance thresholds in config.yaml or using the GUI
+
+**Incorrect cursor positioning**: 
+- Verify camera resolution settings match your actual camera
+- Adjust `frame_reduction` parameter
+
+**Multiple gesture triggers**: 
+- Adjust distance thresholds in configuration
+- Use calibration tool for optimal settings
+
+**Scroll not working**: 
+- Keep middle and ring fingers together while moving vertically
+- Adjust `scroll.activation_distance` in config
+
+**Drag & drop not working**: 
+- Hold pinch gesture for full duration (default 1 second)
+- Check `drag.hold_duration` setting
+
+### Debug Mode
+
+Check application logs for detailed information:
+```bash
+tail -f logs/ai_mouse.log
+```
+
+Logs include:
+- Initialization status
+- Configuration values
+- Performance metrics
+- Error messages with stack traces
 Here's a demonstration of the AI Virtual Mouse in action:
 
 ![Demo of AI Virtual Mouse](images/demo.png)
