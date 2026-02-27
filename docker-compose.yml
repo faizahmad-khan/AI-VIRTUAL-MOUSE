@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  ai-mouse:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    privileged: true # Required for full camera and input device access
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix # Mount X11 socket for GUI
+      - ./config.yaml:/app/config.yaml # Mount config for external modification
+      - ./logs:/app/logs # Persist logs outside container
+    environment:
+      - DISPLAY=${DISPLAY} # Pass host's DISPLAY for X11 forwarding
+    devices:
+      - /dev/video0:/dev/video0 # Map camera device (adjust if you have multiple cameras)
+    healthcheck:
+      test: ["CMD-SHELL", "pgrep -f combined_ai_mouse.py > /dev/null || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    restart: unless-stopped # Always restart unless explicitly stopped
