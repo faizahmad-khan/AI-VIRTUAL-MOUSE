@@ -2,7 +2,6 @@
 
 A computer vision-based virtual mouse application that allows you to control your computer cursor using hand gestures captured through your webcam. This project uses MediaPipe for hand tracking and PyAutoGUI for mouse control.
 
-
 ## 🚀 Features
 
 ### Core Features
@@ -14,7 +13,7 @@ A computer vision-based virtual mouse application that allows you to control you
 - **Drag & Drop**: Hold pinch gesture for 1 second to initiate drag operations
 - **Multi-Gesture Recognition**: Advanced gesture recognition supporting multiple simultaneous operations
 
-### New Advanced Features ✨
+### Advanced Features ✨
 - **Configuration Management**: YAML-based configuration system for easy customization
 - **Configuration GUI**: User-friendly interface to adjust all settings in real-time
 - **Gesture Calibration**: Automatic calibration tool to optimize detection for your hand size
@@ -23,8 +22,70 @@ A computer vision-based virtual mouse application that allows you to control you
 - **Error Handling**: Robust error handling with graceful recovery
 - **FPS Counter**: Real-time performance monitoring displayed on screen
 - **Unit Tests**: Comprehensive test suite for code quality assurance
+- **Docker Containerization**: Containerized deployment with X11 GUI support and health checks
 
-## 🛠️ How It Works
+## � Docker Containerization (Deployment)
+
+This project is Dockerized for easy deployment and consistent environments across different systems. This allows you to run the AI Virtual Mouse without worrying about local dependency conflicts.
+
+### **1. Prerequisites**
+
+- **Docker Desktop**: Install Docker Desktop (for Windows/macOS) or Docker Engine (for Linux).
+- **X Server (for GUI on Linux/macOS)**:
+    - **Linux**: Ensure your X server is running and `DISPLAY` environment variable is set (e.g., `export DISPLAY=:0`). You may need to run `xhost +local:docker` to allow Docker containers to connect to your X server.
+    - **macOS**: Install [XQuartz](https://www.xquartz.org/) and launch it. Then, set your `DISPLAY` environment variable (e.g., `export DISPLAY=host.docker.internal:0`).
+    - **Windows**: Install an X server like [VcXsrv](https://sourceforge.net/projects/vcxsrv/) and configure it to allow connections from all clients. Set your `DISPLAY` environment variable accordingly (e.g., `export DISPLAY=host.docker.internal:0`).
+
+### **2. Build the Docker Image**
+
+Navigate to the root directory of this project where `Dockerfile` and `docker-compose.yml` are located, then build the image:
+
+```bash
+docker build -t ai-virtual-mouse .
+```
+
+### **3. Run the Docker Container**
+
+#### **Option A: Using `docker run` (Manual)**
+
+This command runs the container directly, mapping your camera device and X11 display. Replace `/dev/video0` with your camera device if it's different (e.g., `/dev/video1`).
+
+```bash
+xhost +local:docker # Run this on your Linux/macOS host if you encounter X11 connection errors
+docker run -it --rm \
+  --privileged \
+  -e DISPLAY=${DISPLAY} \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  --device=/dev/video0:/dev/video0 \
+  -v $(pwd)/config.yaml:/app/config.yaml \
+  -v $(pwd)/logs:/app/logs \
+  ai-virtual-mouse
+```
+
+#### **Option B: Using Docker Compose (Recommended)**
+
+Docker Compose simplifies running multi-container Docker applications. It will build the image if it doesn't exist and start the service with the correct configurations.
+
+```bash
+xhost +local:docker # Run this on your Linux/macOS host if you encounter X11 connection errors
+docker-compose up --build
+```
+
+### **4. Configuration**
+
+Adjust settings in `config.yaml` as needed. The `config.yaml` file is mounted as a volume, so changes made on your host machine will be reflected inside the container. Logs will also be persisted in the `logs` directory on your host.
+
+### **5. Health Check**
+
+The `docker-compose.yml` includes a health check to verify that the `combined_ai_mouse.py` script is running inside the container. You can check the health status using:
+
+```bash
+docker ps
+# Or for more details:
+docker inspect --format='{{json .State.Health}}' <container_id_or_name>
+```
+
+## �🛠️ How It Works
 
 The AI Virtual Mouse tracks your index finger tip to move the cursor and recognizes clicks when your thumb and index finger come close together. The system maps hand movements within a designated area of the camera frame to your entire screen space.
 
