@@ -1,0 +1,35 @@
+# Ignore .git directory
+.git
+
+# Ignore Python cache directories and compiled files
+__pycache__/
+*.pyc
+
+# Ignore IDE-specific files (e.g., VS Code)
+.vscode/
+
+# Ignore logs
+logs/
+
+# Ignore test files
+tests/
+
+# Ignore documentation files
+docs/
+
+# Ignore images
+images/
+
+# Ignore build artifacts
+build/
+dist/
+*.egg-info/
+
+# Ignore environment files
+.env
+venv/
+.venv/
+
+# Ignore temporary files
+*.tmp
+*~
